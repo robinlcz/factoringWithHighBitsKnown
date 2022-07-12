@@ -1,5 +1,30 @@
 import time
 
+def main():
+    nn = int(input("Veuillez entrée une taille pour p :"))
+    kk = int(input("Veuillez entrer le nombre de chiffres manquants de p (<= 50%) :"))
+    bruteforcebool = (input("Souhaitez vous utilisez la force brute ? (y/n)"))
+    print("Taille de p :", nn, ", Nombre de chiffres manquants : ", kk)
+    p=random_prime(10^nn);
+    q=random_prime(10^nn)
+    N=p*q
+    pp=(p//10**kk)*10**kk
+    print("N =", N) 
+    print("pp = ", pp)
+    pourcentage=kk/nn*1.0
+    print("Il manque donc ", pourcentage*100, "% de p")
+    tps1 = time.time()
+    if(bruteforcebool == "y"):
+        print("Valeur de p obtenue en utilisant la force brute :", bruteforce(N,pp,nn,pourcentage, kk,0.47))
+    else:
+        print("Racine entière de Q obtenue après notre algorithme :", solutions(pourcentage,N,pp,kk))
+    tps2 = time.time()
+    print("Nous avons donc p =", p)
+    print("Ce qui nous permet d'avoir q =", N/p)
+    print("Vérification de l'égalité N = pq : ", N == p*q)
+    print("Temps d'exécution en secondes :", tps2-tps1)
+
+
 def calckn(pourcentage, N):
     R.<X> = PolynomialRing(QQ)
     pr = pourcentage / 2
@@ -58,7 +83,7 @@ def solutions(pourcentage, N, pp, kk):
         poly+=(X^i)*reduc[n-1-i]
     return poly.roots()
 
-def bruteforce(pp, prc, kk, brut):
+def bruteforce(N,pp,nn, prc, kk, brut):
     if prc<=brut:
         return solutions()
     i=0
@@ -103,22 +128,4 @@ def complexityComparison(N, pourcentage,kk):
     return kk-(i+l)
 
 
-nn= 100
-kk= 49
-print("Taille de p :", nn, ", Nombre de chiffres manquants : ", kk)
-p=9430189963183715651008289116780446323417798987864230107952609005015226936179180274533260292767432569
-q=6618416334439580571371987820009840341586493242076480010115674011556314969757091081187012602370641419
-N=p*q
-pp=(p//10**kk)*10**kk
-print("N =", N) 
-print("pp = ", pp)
-pourcentage=kk/nn*1.0
-print("Il manque donc ", pourcentage*100, "% de p")
-tps1 = time.time()
-#print("Racine entière de Q obtenue après notre algorithme :", solutions(pourcentage,N,pp,kk))
-print("Valeur de p obtenue en utilisant la force brute :", bruteforce(pp, pourcentage, kk,0.47))
-tps2 = time.time()
-print("Nous avons donc p =", p)
-print("Ce qui nous permet d'avoir q =", N/p)
-print("Vérification de l'égalité N = pq : ", N == p*q)
-print("Temps d'exécution en secondes :", tps2-tps1)
+main()
