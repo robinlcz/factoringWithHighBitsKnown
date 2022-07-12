@@ -3,7 +3,11 @@ import time
 def main():
     nn = int(input("Veuillez entrée une taille pour p :"))
     kk = int(input("Veuillez entrer le nombre de chiffres manquants de p (<= 50%) :"))
-    bruteforcebool = (input("Souhaitez vous utilisez la force brute ? (y/n)"))
+    if(nn/kk == 2):
+        print("Nous procédons par forcebrute")
+        bruteforcebool = "y"
+    else:
+        bruteforcebool = (input("Souhaitez vous utilisez la force brute ? (y/n)"))
     print("Taille de p :", nn, ", Nombre de chiffres manquants : ", kk)
     p=random_prime(10^nn);
     q=random_prime(10^nn)
