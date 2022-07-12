@@ -1,32 +1,44 @@
 import time
 
 def main():
-    nn = int(input("Veuillez entrée une taille pour p :"))
-    kk = int(input("Veuillez entrer le nombre de chiffres manquants de p (<= 50%) :"))
-    if(nn/kk == 2):
-        print("Nous procédons par forcebrute")
-        bruteforcebool = "y"
-    else:
-        bruteforcebool = (input("Souhaitez vous utilisez la force brute ? (y/n)"))
-    print("Taille de p :", nn, ", Nombre de chiffres manquants : ", kk)
-    p=random_prime(10^nn);
-    q=random_prime(10^nn)
-    N=p*q
-    pp=(p//10**kk)*10**kk
-    print("N =", N) 
-    print("pp = ", pp)
-    pourcentage=kk/nn*1.0
-    print("Il manque donc ", pourcentage*100, "% de p")
-    tps1 = time.time()
-    if(bruteforcebool == "y"):
-        print("Valeur de p obtenue en utilisant la force brute :", bruteforce(N,pp,nn,pourcentage, kk,0.47))
-    else:
-        print("Racine entière de Q obtenue après notre algorithme :", solutions(pourcentage,N,pp,kk))
-    tps2 = time.time()
-    print("Nous avons donc p =", p)
-    print("Ce qui nous permet d'avoir q =", N/p)
-    print("Vérification de l'égalité N = pq : ", N == p*q)
-    print("Temps d'exécution en secondes :", tps2-tps1)
+    section = showMenu()
+    if(section == 1):
+        nn = int(input("Veuillez entrer une taille pour p :"))
+        kk = int(input("Veuillez entrer le nombre de chiffres manquants de p (<= 50%) :"))
+        if(nn/kk == 2):
+            print("Nous procédons par forcebrute")
+            bruteforcebool = "y"
+        else:
+            bruteforcebool = (input("Souhaitez vous utilisez la force brute ? (y/n)"))
+        print("Taille de p :", nn, ", Nombre de chiffres manquants : ", kk)
+        p=random_prime(10^nn);
+        q=random_prime(10^nn)
+        N=p*q
+        pp=(p//10**kk)*10**kk
+        print("N =", N) 
+        print("pp = ", pp)
+        pourcentage=kk/nn*1.0
+        print("Il manque donc ", pourcentage*100, "% de p")
+        tps1 = time.time()
+        if(bruteforcebool == "y"):
+            print("Valeur de p obtenue en utilisant la force brute :", bruteforce(N,pp,nn,pourcentage, kk,0.47))
+        else:
+            print("Racine entière de Q obtenue après notre algorithme :", solutions(pourcentage,N,pp,kk))
+        tps2 = time.time()
+        print("Nous avons donc p =", p)
+        print("Ce qui nous permet d'avoir q =", N/p)
+        print("Vérification de l'égalité N = pq : ", N == p*q)
+        print("Temps d'exécution en secondes :", tps2-tps1)
+    elif(section == 2):
+        nn = int(input("Veuillez entrer une taille pour p :"))
+        kk = int(input("Veuillez entrer le nombre de chiffres manquants de p (<= 50%) :"))
+        p = random_prime(10^nn)
+        q = random_prime(10^nn)
+        N = p*q
+        (k,j,n) = calckn(kk/nn*1.0,N)
+        print("Pour", kk/nn*100, "% de chiffres manquants la taille de la matrice est :", n)
+
+
 
 
 def calckn(pourcentage, N):
@@ -131,5 +143,10 @@ def complexityComparison(N, pourcentage,kk):
         j -= 1
     return kk-(i+l)
 
+def showMenu():
+    print("Que souhaitez vous faire ?")
+    print("1 - Factorisation de N à partir d'informations sur p ")
+    print("2 - Calcul de la taille de la matrice")
+    return int(input())
 
 main()
